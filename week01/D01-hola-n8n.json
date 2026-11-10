@@ -1,0 +1,142 @@
+{
+  "name": "D01 Hola n8n.",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "efb3b0c9-608f-43c3-8d4b-d6c17cda8e6c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "46fd1d44-57a6-4098-a19e-137ad76c58a9",
+              "name": "nombre",
+              "value": "Ana Torres ",
+              "type": "string"
+            },
+            {
+              "id": "f5819d19-5374-4f39-9c42-bd99af1ef218",
+              "name": "email",
+              "value": "Ana.Torres@Ejemplo.COM",
+              "type": "string"
+            },
+            {
+              "id": "3fc02ce9-f91b-4664-a6dc-1df5be6bed13",
+              "name": "empresa",
+              "value": "Ejemplo SA",
+              "type": "string"
+            },
+            {
+              "id": "4108499f-dcfa-4289-b798-11c58ed001f5",
+              "name": "presupuesto",
+              "value": 2500,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "aaca44d4-196e-4cd9-ad2e-78e8fffd2498",
+      "name": "Lead de Prueba"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9845b4f7-fa17-48e7-a286-57218bce7da4",
+              "name": "email",
+              "value": "={{ $json.email.trim() .toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "ce193098-4865-4058-87e2-fb592bece4d9",
+              "name": "nombre",
+              "value": "={{  $json.nombre.trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "d986585b-48c6-44ea-8565-eb1df44139bb",
+              "name": "dominio",
+              "value": "={{  $json.email.trim() .toLowerCase() .split('@') [1] }}",
+              "type": "string"
+            },
+            {
+              "id": "5a7636e7-f7e8-432c-be8d-1729a6de437a",
+              "name": "segmento",
+              "value": "={{  $json.presupuesto >= 2000 ? 'alto' : 'estándar' }}",
+              "type": "string"
+            },
+            {
+              "id": "86c64ea9-b24f-427c-b575-955f3c3e782e",
+              "name": "recibido_en",
+              "value": "={{  $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "0effda21-f648-4574-be84-d7ececd9ad58",
+      "name": "Normalizar"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Lead de Prueba",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead de Prueba": {
+      "main": [
+        [
+          {
+            "node": "Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fd8cfd6f-3a40-4ff1-ac81-11c77a902c69",
+  "meta": {
+    "instanceId": "8c3dec49463fab4b7185b99e24103fa55c361031b8891f3dc6b981035b51d7b5"
+  },
+  "nodeGroups": [],
+  "id": "VqtVcm29w0hnI75V",
+  "tags": []
+}
